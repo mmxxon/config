@@ -28,17 +28,18 @@ export PATH=$HOME/bin:$PATH
 # Uncomment to set the system locale, this affects system language and regional settings like date and currency format
 # Be sure to generate your chosen locale first by running locale-gen
 # Example for United States:
-# export LANG=en_US.UTF-8
-# export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export BROWSER=librewolf
 
 # ==========================================
 # XDG Base Directory specification
 # ==========================================
 # XDG Base Directory is a standard for defining common directories for various files like configuration files and cache files.
 # Uncomment the lines below to set these directories.
-# export XDG_CONFIG_HOME="$HOME/.config"
-# export XDG_DATA_HOME="$HOME/.local/share"
-# export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
 
 # ==========================================
 # SSH Agent
@@ -60,5 +61,6 @@ fi
 # export EDITOR=nano
 # export EDITOR=vi
 # export EDITOR=emacs
+# export EDITOR=nvim
 
 # Remember to restart your terminal or run source ~/.zprofile to reflect these changes

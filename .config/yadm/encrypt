@@ -1,2 +1,3 @@
 .ssh/*.key
 .gpg/*prv.key
+.config/l

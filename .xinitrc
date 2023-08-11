@@ -49,6 +49,7 @@
 # The following line will start i3
 exec i3
 
+
 # You can replace 'i3' with your preferred window manager
 # Be sure to comment out the 'exec i3' line if you do
 # exec awesome

@@ -9,7 +9,9 @@
 # ==========================================
 # Add your custom bin directory to PATH
 # This allows you to run scripts and binaries that you have placed in your local bin directory
-export PATH=$HOME/bin:$PATH
+export GPG_TTY="$( tty )"
+export PATH=$HOME/local/bin:$PATH
+# export BROWSER=librewolf
 
 # ==========================================
 # Environment Variables
@@ -27,7 +29,7 @@ export PATH=$HOME/bin:$PATH
 # ==========================================
 # Set the default editor (uncomment the one you want)
 # export EDITOR=nano
-# export EDITOR=vi
+export EDITOR=nvim
 # export EDITOR=emacs
 
 # ==========================================

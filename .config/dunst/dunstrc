@@ -1,0 +1,23 @@
+# Set the default notification position (top-left in this example)
+geometry = "300x5-10+10"
+
+# Set the display time for notifications (in milliseconds)
+timeout = 5000
+
+# Set the background color for notifications
+background = "#282c34"
+
+# Set the foreground color for notifications
+foreground = "#abb2bf"
+
+# Customize the font for notifications
+font = Monospace 10
+
+# Set the transparency level for notifications (0-100)
+transparency = 0
+
+# Specify the format for notifications (optional)
+format = "%s: %b"
+
+# Enable Dunst to handle markup in notifications
+markup = full

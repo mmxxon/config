@@ -51,5 +51,8 @@ fi
 if [[ -f "$HOME/.ssh/agent.env" ]]; then
    . "$HOME/.ssh/agent.env" > /dev/null
 fi
-
 # Remember to restart your terminal or run source ~/.zlogin to reflect these changes
+if [[ "$(tty)" == "/dev/tty1" ]] && [[ -z $DISPLAY ]]; then
+  startx
+  exit
+fi
