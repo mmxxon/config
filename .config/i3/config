@@ -1,0 +1,454 @@
+#!/bin/bash
+
+font pango:monospace 8
+exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# the arrows is not convenient
+set $up k
+set $down j
+set $left h
+set $right l
+
+floating_modifier Mod4
+tiling_drag modifier titlebar
+
+# start a terminal
+bindsym Mod4+Return exec i3-sensible-terminal
+
+# kill focused window
+bindsym Mod4+Shift+q kill
+
+# start dmenu (a program launcher)
+bindsym Mod4+d exec --no-startup-id dmenu_run
+
+# change focus
+bindsym Mod4+$left focus left
+bindsym Mod4+$down focus down
+bindsym Mod4+$up focus up
+bindsym Mod4+$right focus right
+
+# alternatively, you can use the cursor keys:
+bindsym Mod4+Left focus left
+bindsym Mod4+Down focus down
+bindsym Mod4+Up focus up
+bindsym Mod4+Right focus right
+
+# move focused window
+bindsym Mod4+Shift+$left move left
+bindsym Mod4+Shift+$down move down
+bindsym Mod4+Shift+$up move up
+bindsym Mod4+Shift+$right move right
+
+# alternatively, you can use the cursor keys:
+bindsym Mod4+Shift+Left move left
+bindsym Mod4+Shift+Down move down
+bindsym Mod4+Shift+Up move up
+bindsym Mod4+Shift+Right move right
+
+# split in horizontal orientation
+bindsym Mod4+semicolon split h
+
+# split in vertical orientation
+bindsym Mod4+v split v
+
+# enter fullscreen mode for the focused container
+bindsym Mod4+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym Mod4+s layout stacking
+bindsym Mod4+w layout tabbed
+bindsym Mod4+e layout toggle split
+
+# toggle tiling / floating
+bindsym Mod4+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym Mod4+space focus mode_toggle
+
+# focus the parent container
+bindsym Mod4+a focus parent
+
+# focus the child container
+#bindsym Mod4+d focus child
+
+# move the currently focused window to the scratchpad
+bindsym Mod4+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym Mod4+minus scratchpad show
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# reload the configuration file
+bindsym Mod4+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym Mod4+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym Mod4+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym $left       resize shrink width 10 px or 10 ppt
+        bindsym $down       resize grow height 10 px or 10 ppt
+        bindsym $up         resize shrink height 10 px or 10 ppt
+        bindsym $right      resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left        resize shrink width 10 px or 10 ppt
+        bindsym Down        resize grow height 10 px or 10 ppt
+        bindsym Up          resize shrink height 10 px or 10 ppt
+        bindsym Right       resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or Mod4+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym Mod4+r mode "default"
+}
+
+bindsym Mod4+r mode "resize"
+
+# ==========================================
+# Mod Key Variable
+# ==========================================
+# Choose the Mod key (Mod1 = alt, Mod4 = Super/Windows key)
+set $mod Mod4
+
+# ==========================================
+# Workspace Variables
+# ==========================================
+# Define names for your workspaces for better organization and recognition
+set $ws1 "1: Web"
+set $ws2 "2: Code"
+set $ws3 "3: Chat"
+set $ws4 "4: Media"
+set $ws5 "5: Docs"
+set $ws6 "6: Design"
+set $ws7 "7: Virtual"
+set $ws8 "8: Games"
+set $ws9 "9: Mail"
+set $ws10 "10: Misc"
+
+# ==========================================
+# Basic Key Bindings
+# ==========================================
+# Switch to specific workspaces using modkey + number
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# ==========================================
+# Window Management Key Bindings
+# ==========================================
+# Move the focused window to a specific workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+10 move container to workspace $ws10
+
+# ==========================================
+# Basic Key Bindings for QWERTY Row
+# ==========================================
+# bindsym $mod+q kill
+# bindsym $mod+w [some action for 'w']
+# bindsym $mod+e [some action for 'e']
+# bindsym $mod+r [some action for 'r']
+# bindsym $mod+t [some action for 't']
+# bindsym $mod+y [some action for 'y']
+# bindsym $mod+u [some action for 'u']
+# bindsym $mod+i [some action for 'i']
+# bindsym $mod+o [some action for 'o']
+# bindsym $mod+p [some action for 'p']
+# bindsym $mod+bracketleft [some action for '[']
+# bindsym $mod+bracketright [some action for ']']
+# 
+# # ==========================================
+# # Basic Key Bindings for ASDF Row
+# # ==========================================
+# bindsym $mod+a [some action for 'a']
+# bindsym $mod+s [some action for 's']
+# bindsym $mod+d [some action for 'd']
+# bindsym $mod+f [some action for 'f']
+# bindsym $mod+g [some action for 'g']
+# bindsym $mod+h [some action for 'h']
+# bindsym $mod+j [some action for 'j']
+# bindsym $mod+k [some action for 'k']
+# bindsym $mod+l [some action for 'l']
+# bindsym $mod+semicolon [some action for ';']
+# 
+# # ==========================================
+# # Basic Key Bindings for ZXC Row
+# # ==========================================
+# bindsym $mod+z [some action for 'z']
+# bindsym $mod+x [some action for 'x']
+# bindsym $mod+c [some action for 'c']
+# bindsym $mod+v [some action for 'v']
+# bindsym $mod+b [some action for 'b']
+# bindsym $mod+n [some action for 'n']
+# bindsym $mod+m [some action for 'm']
+# bindsym $mod+comma [some action for ',']
+# bindsym $mod+period [some action for '.']
+# bindsym $mod+slash [some action for '/']
+# 
+# # ==========================================
+# # Shift-Modified Key Bindings for QWERTY Row
+# # ==========================================
+# bindsym $mod+Shift+q [shift action for 'Q']
+# bindsym $mod+Shift+w [shift action for 'W']
+# bindsym $mod+Shift+e [shift action for 'E']
+# bindsym $mod+Shift+r [shift action for 'R']
+# bindsym $mod+Shift+t [shift action for 'T']
+# bindsym $mod+Shift+y [shift action for 'Y']
+# bindsym $mod+Shift+u [shift action for 'U']
+# bindsym $mod+Shift+i [shift action for 'I']
+# bindsym $mod+Shift+o [shift action for 'O']
+# bindsym $mod+Shift+p [shift action for 'P']
+# bindsym $mod+Shift+bracketleft [shift action for '{']
+# bindsym $mod+Shift+bracketright [shift action for '}']
+# 
+# # ==========================================
+# # Shift-Modified Key Bindings for ASDF Row
+# # ==========================================
+# bindsym $mod+Shift+a [shift action for 'A']
+# bindsym $mod+Shift+s [shift action for 'S']
+# bindsym $mod+Shift+d [shift action for 'D']
+# bindsym $mod+Shift+f [shift action for 'F']
+# bindsym $mod+Shift+g [shift action for 'G']
+# bindsym $mod+Shift+h [shift action for 'H']
+# bindsym $mod+Shift+j [shift action for 'J']
+# bindsym $mod+Shift+k [shift action for 'K']
+# bindsym $mod+Shift+l [shift action for 'L']
+# bindsym $mod+Shift+semicolon [shift action for ':']
+# 
+# # ==========================================
+# # Shift-Modified Key Bindings for ZXC Row
+# # ==========================================
+# bindsym $mod+Shift+z [shift action for 'Z']
+# bindsym $mod+Shift+x [shift action for 'X']
+# bindsym $mod+Shift+c [shift action for 'C']
+# bindsym $mod+Shift+v [shift action for 'V']
+# bindsym $mod+Shift+b [shift action for 'B']
+# bindsym $mod+Shift+n [shift action for 'N']
+# bindsym $mod+Shift+m [shift action for 'M']
+# bindsym $mod+Shift+comma [shift action for '<']
+# bindsym $mod+Shift+period [shift action for '>']
+# bindsym $mod+Shift+slash [shift action for '?']
+# 
+# # ==========================================
+# # Ctrl-Modified Key Bindings for QWERTY Row
+# # ==========================================
+# bindsym $mod+Control+q [ctrl action for 'q']
+# bindsym $mod+Control+w [ctrl action for 'w']
+# bindsym $mod+Control+e [ctrl action for 'e']
+# bindsym $mod+Control+r [ctrl action for 'r']
+# bindsym $mod+Control+t [ctrl action for 't']
+# bindsym $mod+Control+y [ctrl action for 'y']
+# bindsym $mod+Control+u [ctrl action for 'u']
+# bindsym $mod+Control+i [ctrl action for 'i']
+# bindsym $mod+Control+o [ctrl action for 'o']
+# bindsym $mod+Control+p [ctrl action for 'p']
+# bindsym $mod+Control+bracketleft [ctrl action for '[']
+# bindsym $mod+Control+bracketright [ctrl action for ']']
+# 
+# # ==========================================
+# # Ctrl-Modified Key Bindings for ASDF Row
+# # ==========================================
+# bindsym $mod+Control+a [ctrl action for 'a']
+# bindsym $mod+Control+s [ctrl action for 's']
+# bindsym $mod+Control+d [ctrl action for 'd']
+# bindsym $mod+Control+f [ctrl action for 'f']
+# bindsym $mod+Control+g [ctrl action for 'g']
+# bindsym $mod+Control+h [ctrl action for 'h']
+# bindsym $mod+Control+j [ctrl action for 'j']
+# bindsym $mod+Control+k [ctrl action for 'k']
+# bindsym $mod+Control+l [ctrl action for 'l']
+# bindsym $mod+Control+semicolon [ctrl action for ';']
+# 
+# # ==========================================
+# # Ctrl-Modified Key Bindings for ZXC Row
+# # ==========================================
+# bindsym $mod+Control+z [ctrl action for 'z']
+# bindsym $mod+Control+x [ctrl action for 'x']
+# bindsym $mod+Control+c [ctrl action for 'c']
+# bindsym $mod+Control+v [ctrl action for 'v']
+# bindsym $mod+Control+b [ctrl action for 'b']
+# bindsym $mod+Control+n [ctrl action for 'n']
+# bindsym $mod+Control+m [ctrl action for 'm']
+# bindsym $mod+Control+comma [ctrl action for ',']
+# bindsym $mod+Control+period [ctrl action for '.']
+# bindsym $mod+Control+slash [ctrl action for '/']
+# 
+# # ==========================================
+# # Additional Mod-Modified Key Bindings
+# # ==========================================
+# 
+# # Return key actions
+# bindsym Mod+Return [action for 'Mod+Return']
+# 
+# # Space key actions
+# bindsym Mod+Space [action for 'Mod+Space']
+# 
+# # Escape key actions
+# bindsym Mod+Escape [action for 'Mod+Escape']
+# 
+# # Grave key actions
+# bindsym Mod+grave [action for 'Mod+Grave']
+# 
+# # Insert key actions
+# bindsym Mod+Insert [action for 'Mod+Insert']
+# 
+# # Home key actions
+# bindsym Mod+Home [action for 'Mod+Home']
+# bindsym Mod+End [action for 'Mod+End']
+# bindsym Mod+Page_Up [action for 'Mod+Page_Up']
+# bindsym Mod+Page_Down [action for 'Mod+Page_Down']
+# 
+# # Arrow key actions
+# bindsym Mod+Left [action for 'Mod+Left']
+# bindsym Mod+Right [action for 'Mod+Right']
+# bindsym Mod+Up [action for 'Mod+Up']
+# bindsym Mod+Down [action for 'Mod+Down']
+# 
+# # Function key actions (F1 - F12)
+# bindsym Mod+F1 [action for 'Mod+F1']
+# bindsym Mod+F2 [action for 'Mod+F2']
+# bindsym Mod+F3 [action for 'Mod+F3']
+# bindsym Mod+F4 [action for 'Mod+F4']
+# bindsym Mod+F5 [action for 'Mod+F5']
+# bindsym Mod+F6 [action for 'Mod+F6']
+# bindsym Mod+F7 [action for 'Mod+F7']
+# bindsym Mod+F8 [action for 'Mod+F8']
+# bindsym Mod+F9 [action for 'Mod+F9']
+# bindsym Mod+F10 [action for 'Mod+F10']
+# bindsym Mod+F11 [action for 'Mod+F11']
+# bindsym Mod+F12 [action for 'Mod+F12']
+# 
+# # Print Screen key actions
+# bindsym Mod+Print [action for 'Mod+Print']
+# 
+# # Scroll Lock key actions
+# bindsym Mod+Scroll_Lock [action for 'Mod+Scroll_Lock']
+# 
+# # Pause/Break key actions
+# bindsym Mod+Pause [action for 'Mod+Pause']
+# 
+# # Num Lock key actions
+# bindsym Mod+Num_Lock [action for 'Mod+Num_Lock']
+# 
+# # Delete key actions
+# bindsym Mod+Delete [action for 'Mod+Delete']
+# 
+# # Backspace key actions
+# bindsym $mod+BackSpace [action for 'Mod+BackSpace']
+# 
+# bindsym $mod+Prior	[action for 'Mod+Prior']
+# 
+# # workspace "1"           output eDP-1
+# # workspace "2"           output eDP-1
+# # workspace "3"           output eDP-1
+# # workspace "4"           output eDP-1
+# # workspace "5"           output eDP-1
+# # workspace "6"           output eDP-1
+# # workspace "7"           output eDP-1
+# # workspace "8: Games"    output HDMI-1
+# # workspace "9: Music"    output HDMI-1
+# # workspace "10: Waiting" output HDMI-1
+# 
+# # bindsym $mod+Next		workspace next
+# # bindsym $mod+Tab		workspace back_and_forth
+# # bindsym $mod+semicolon		workspace next
+# # bindsym $mod+apostrophe		split horizontal ;; exec $term
+# # bindsym $mod+slash		split vertical ;; exec $term
+# # bindsym $mod+backslash		workspace back_and_forth
+# bindsym $mod+mod2+KP_1 workspace $ws1
+# bindsym $mod+mod2+KP_2 workspace $ws2
+# bindsym $mod+mod2+KP_3 workspace $ws3
+# bindsym $mod+mod2+KP_4 workspace $ws4
+# bindsym $mod+mod2+KP_5 workspace $ws5
+# bindsym $mod+mod2+KP_6 workspace $ws6
+# bindsym $mod+mod2+KP_7 workspace $ws7
+# bindsym $mod+mod2+KP_8 workspace $ws8
+# bindsym $mod+mod2+KP_0 workspace $ws10
+# bindsym $mod+KP_1 workspace $ws1
+# bindsym $mod+KP_2 workspace $ws2
+# bindsym $mod+KP_3 workspace $ws3
+# bindsym $mod+KP_4 workspace $ws4
+# bindsym $mod+KP_5 workspace $ws5
+# bindsym $mod+KP_6 workspace $ws6
+# bindsym $mod+KP_7 workspace $ws7
+# bindsym $mod+KP_8 workspace $ws8
+# bindsym $mod+KP_9 workspace $ws9
+# bindsym $mod+KP_0 workspace $ws10
+# # bindsym $mod+plus		exec --no-startup-id pulsemixer --change-volume +5 && pkill -SIGRTMIN+6 ${STATUSBAR:-i3blocks}
+# # bindsym $mod+minus		exec --no-startup-id pulsemixer --change-volume -5 && pkill -SIGRTMIN+6 ${STATUSBAR:-i3blocks}
+# # bindsym $mod+less		exec --no-startup-id playerctl previous
+# # bindsym $mod+greater		exec --no-startup-id playerctl next
+# # bindsym Print			exec --no-startup-id maim ~/pics/pic-full-"$(date '+%y%m%d-%H%M-%S').png"
+# 
+# # ---- Shift ----
+# # bindsym $mod+Shift+Return	exec --no-startup-id samedir
+# # bindsym $mod+Shift+space	floating toggle
+# # bindsym $mod+Shift+Escape	exec --no-startup-id prompt "Exit i3?" "i3 exit"
+# #bindsym $mod+Shift+grave
+# #bindsym $mod+Shift+Insert
+# # bindsym $mod+Shift+BackSpace	exec --no-startup-id prompt "Reboot computer?" "$reboot"
+# # bindsym $mod+Shift+Delete	exec --no-startup-id pulsemixer --mute ; exec --no-startup-id playerctl -a pause ; exec --no-startup-id pauseallmpv; workspace 0; exec $term -e htop ; exec $term -e lf
+# # bindsym $mod+Shift+Home		    move container to workspace $ws1
+# # bindsym $mod+Shift+End		    move container to workspace $ws10
+# # bindsym $mod+Shift+Next		    move container to workspace next
+# # bindsym $mod+Shift+Up		    move up
+# # bindsym $mod+Shift+Down		    move down
+# # bindsym $mod+Shift+Left		    move left
+# # bindsym $mod+Shift+Right	    move right
+# # bindsym $mod+Shift+plus		    exec --no-startup-id pulsemixer --change-volume +10 && pkill -SIGRTMIN+6 ${STATUSBAR:-i3blocks}
+# # bindsym $mod+Shift+minus	    exec --no-startup-id pulsemixer --change-volume -10 && pkill -SIGRTMIN+6 ${STATUSBAR:-i3blocks}
+# # bindsym $mod+Shift+less		    exec --no-startup-id playerctl position 0
+# # bindsym Shift+Print		        exec --no-startup-id maimpick
+# 
+# # ---- Ctrl ----
+# # bindsym $mod+Ctrl+Up		move workspace to output up
+# # bindsym $mod+Ctrl+Down		move workspace to output down
+# # bindsym $mod+Ctrl+Left		move workspace to output left
+# # bindsym $mod+Ctrl+Right		move workspace to output right
+# # bindsym $mod+Ctrl+plus		exec --no-startup-id pulsemixer --change-volume +1 && pkill -SIGRTMIN+6 ${STATUSBAR:-i3blocks}
+# # bindsym $mod+Ctrl+minus	    exec --no-startup-id pulsemixer --change-volume -1 && pkill -SIGRTMIN+6 ${STATUSBAR:-i3blocks}
+# 
+# exec_always --no-startup-id polybar
