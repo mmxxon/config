@@ -35,12 +35,16 @@
 # Start any programs that you want to run at login
 # For example, to start a terminal, uncomment the following line:
 # xterm &
+if [[ -f "/usr/local/bin/keyboard-switch.sh" ]]; then
+	/usr/local/bin/keyboard-switch.sh
+fi
+
 
 # ==========================================
 # DPI
 # ==========================================
 # If you have a High DPI monitor, you might need to set the DPI for X
-# xrandr --dpi 192
+xrandr --dpi 192
 
 # ==========================================
 # Start the Window Manager

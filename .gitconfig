@@ -3,7 +3,7 @@
     email = xon.dev@protonmail.com
     name = Maksym Movchan
     username = xon
-    # signingkey = xon.dev@protonmail.com
+    signingkey = xon.dev@protonmail.com
 [credential]
 	helper = libsecret
 # [credential "https://github.com"]

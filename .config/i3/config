@@ -56,11 +56,8 @@ bindsym Mod4+Shift+Right move right
 # split in horizontal orientation
 bindsym Mod4+semicolon split h
 
-# split in vertical orientation
-bindsym Mod4+v split v
-
 # enter fullscreen mode for the focused container
-bindsym Mod4+f fullscreen toggle
+# bindsym Mod4+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym Mod4+s layout stacking
@@ -77,7 +74,7 @@ bindsym Mod4+space focus mode_toggle
 bindsym Mod4+a focus parent
 
 # focus the child container
-#bindsym Mod4+d focus child
+# bindsym Mod4+d focus child
 
 # move the currently focused window to the scratchpad
 bindsym Mod4+Shift+minus move scratchpad
@@ -158,39 +155,39 @@ set $ws10 "10: Misc"
 # Basic Key Bindings
 # ==========================================
 # Switch to specific workspaces using modkey + number
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+bindsym $mod+1			workspace $ws1
+bindsym $mod+2			workspace $ws2
+bindsym $mod+3			workspace $ws3
+bindsym $mod+4			workspace $ws4
+bindsym $mod+5			workspace $ws5
+bindsym $mod+6			workspace $ws6
+bindsym $mod+7			workspace $ws7
+bindsym $mod+8			workspace $ws8
+bindsym $mod+9			workspace $ws9
+bindsym $mod+0			workspace $ws10
 
 # ==========================================
 # Window Management Key Bindings
 # ==========================================
 # Move the focused window to a specific workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+10 move container to workspace $ws10
+bindsym $mod+Shift+1		move container to workspace $ws1
+bindsym $mod+Shift+2		move container to workspace $ws2
+bindsym $mod+Shift+3		move container to workspace $ws3
+bindsym $mod+Shift+4		move container to workspace $ws4
+bindsym $mod+Shift+5		move container to workspace $ws5
+bindsym $mod+Shift+6		move container to workspace $ws6
+bindsym $mod+Shift+7		move container to workspace $ws7
+bindsym $mod+Shift+8		move container to workspace $ws8
+bindsym $mod+Shift+9		move container to workspace $ws9
+bindsym $mod+Shift+0		move container to workspace $ws10
 
 # ==========================================
 # Basic Key Bindings for QWERTY Row
 # ==========================================
 # bindsym $mod+q kill
-bindsym $mod+w		exec --no-startup-id $BROWSER
-# bindsym $mod+e [some action for 'e']
-bindsym $mod+r		exec --no-startup-id rofi -show run
+bindsym $mod+w			exec --no-startup-id $BROWSER
+# bindsym $mod+e [some action for 'e'] email client
+bindsym $mod+r			exec --no-startup-id rofi -show run
 # bindsym $mod+t [some action for 't']
 # bindsym $mod+y [some action for 'y']
 # bindsym $mod+u [some action for 'u']
@@ -206,7 +203,7 @@ bindsym $mod+r		exec --no-startup-id rofi -show run
 # bindsym $mod+a [some action for 'a']
 # bindsym $mod+s [some action for 's']
 # bindsym $mod+d [some action for 'd']
-# bindsym $mod+f [some action for 'f']
+bindsym $mod+f		fullscreen toggle
 # bindsym $mod+g [some action for 'g']
 # bindsym $mod+h [some action for 'h']
 # bindsym $mod+j [some action for 'j']
@@ -219,8 +216,8 @@ bindsym $mod+r		exec --no-startup-id rofi -show run
 # # ==========================================
 # bindsym $mod+z [some action for 'z']
 # bindsym $mod+x [some action for 'x']
-bindsym $mod+c exec --no-startup-id rofi -show combi
-# bindsym $mod+v [some action for 'v']
+# bindsym $mod+c			exec --no-startup-id rofi -show combi
+# bindsym $mod+v			sticky toggle
 # bindsym $mod+b [some action for 'b']
 # bindsym $mod+n [some action for 'n']
 # bindsym $mod+m [some action for 'm']
@@ -249,6 +246,7 @@ bindsym $mod+c exec --no-startup-id rofi -show combi
 # # ==========================================
 # bindsym $mod+Shift+a [shift action for 'A']
 # bindsym $mod+Shift+s [shift action for 'S']
+bindsym $mod+Shift+s		sticky toggle
 # bindsym $mod+Shift+d [shift action for 'D']
 # bindsym $mod+Shift+f [shift action for 'F']
 # bindsym $mod+Shift+g [shift action for 'G']
@@ -451,6 +449,6 @@ bindsym $mod+c exec --no-startup-id rofi -show combi
 # # bindsym $mod+Ctrl+plus		exec --no-startup-id pulsemixer --change-volume +1 && pkill -SIGRTMIN+6 ${STATUSBAR:-i3blocks}
 # # bindsym $mod+Ctrl+minus	    exec --no-startup-id pulsemixer --change-volume -1 && pkill -SIGRTMIN+6 ${STATUSBAR:-i3blocks}
 # 
-exec --no-startup-id polybar
+exec --no-startup-id polybar -r
 exec --no-startup-id dunst
 exec --no-startup-id wal -R
