@@ -1,3 +1,4 @@
 .ssh/*.key
 .gpg/*prv.key
 .config/l
+.gnupg/openpgp-revocs.d/*.rev
