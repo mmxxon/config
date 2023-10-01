@@ -1,15 +1,8 @@
 #!/bin/bash
 
 font pango:monospace 8
-exec --no-startup-id dex --autostart --environment i3
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-# Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+set $term alacritty
 
 # the arrows is not convenient
 set $up k
@@ -17,17 +10,11 @@ set $down j
 set $left h
 set $right l
 
-floating_modifier Mod4
-tiling_drag modifier titlebar
-
 # start a terminal
-bindsym Mod4+Return exec i3-sensible-terminal
+bindsym Mod4+Return exec --no-startup-id i3-sensible-terminal
 
 # kill focused window
 bindsym Mod4+Shift+q kill
-
-# start dmenu (a program launcher)
-bindsym Mod4+d exec --no-startup-id dmenu_run
 
 # change focus
 bindsym Mod4+$left focus left
@@ -102,33 +89,6 @@ bindsym Mod4+Shift+c reload
 bindsym Mod4+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym Mod4+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym $left       resize shrink width 10 px or 10 ppt
-        bindsym $down       resize grow height 10 px or 10 ppt
-        bindsym $up         resize shrink height 10 px or 10 ppt
-        bindsym $right      resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Left        resize shrink width 10 px or 10 ppt
-        bindsym Down        resize grow height 10 px or 10 ppt
-        bindsym Up          resize shrink height 10 px or 10 ppt
-        bindsym Right       resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape or Mod4+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym Mod4+r mode "default"
-}
-
-# bindsym Mod4+r mode "resize"
 
 # ==========================================
 # Mod Key Variable
@@ -229,7 +189,7 @@ bindsym $mod+f		fullscreen toggle
 # # Shift-Modified Key Bindings for QWERTY Row
 # # ==========================================
 # bindsym $mod+Shift+q [shift action for 'Q']
-# bindsym $mod+Shift+w [shift action for 'W']
+bindsym $mod+Shift+w			exec --no-startup-id chromium
 # bindsym $mod+Shift+e [shift action for 'E']
 # bindsym $mod+Shift+r [shift action for 'R']
 # bindsym $mod+Shift+t [shift action for 'T']
@@ -253,7 +213,7 @@ bindsym $mod+Shift+s		sticky toggle
 # bindsym $mod+Shift+h [shift action for 'H']
 # bindsym $mod+Shift+j [shift action for 'J']
 # bindsym $mod+Shift+k [shift action for 'K']
-# bindsym $mod+Shift+l [shift action for 'L']
+# bindsym $mod+Shift+l		exec --no-startup-id i3lock-fancy
 # bindsym $mod+Shift+semicolon [shift action for ':']
 # 
 # # ==========================================
@@ -263,9 +223,9 @@ bindsym $mod+Shift+s		sticky toggle
 # bindsym $mod+Shift+x [shift action for 'X']
 # bindsym $mod+Shift+c [shift action for 'C']
 # bindsym $mod+Shift+v [shift action for 'V']
-# bindsym $mod+Shift+b [shift action for 'B']
+bindsym $mod+Shift+b		exec --no-startup-id $term -e bluetoothctl
 # bindsym $mod+Shift+n [shift action for 'N']
-# bindsym $mod+Shift+m [shift action for 'M']
+bindsym $mod+Shift+m		exec --no-startup-id $term -e pulsemixer
 # bindsym $mod+Shift+comma [shift action for '<']
 # bindsym $mod+Shift+period [shift action for '>']
 # bindsym $mod+Shift+slash [shift action for '?']
@@ -290,14 +250,15 @@ bindsym $mod+Shift+s		sticky toggle
 # # Ctrl-Modified Key Bindings for ASDF Row
 # # ==========================================
 # bindsym $mod+Control+a [ctrl action for 'a']
-# bindsym $mod+Control+s [ctrl action for 's']
+bindsym $mod+Control+s		exec --no-startup-id $term -e spotify_player
 # bindsym $mod+Control+d [ctrl action for 'd']
 # bindsym $mod+Control+f [ctrl action for 'f']
 # bindsym $mod+Control+g [ctrl action for 'g']
 # bindsym $mod+Control+h [ctrl action for 'h']
 # bindsym $mod+Control+j [ctrl action for 'j']
 # bindsym $mod+Control+k [ctrl action for 'k']
-# bindsym $mod+Control+l [ctrl action for 'l']
+bindsym $mod+Control+l		exec --no-startup-id i3lock-fancy
+
 # bindsym $mod+Control+semicolon [ctrl action for ';']
 # 
 # # ==========================================

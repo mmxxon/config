@@ -30,7 +30,7 @@ export PATH=$HOME/bin:$PATH
 # Example for United States:
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export BROWSER=chromium
+export BROWSER=librewolf
 
 # ==========================================
 # XDG Base Directory specification
